@@ -1,0 +1,54 @@
+defmodule OneDHCPD.Utility do
+  @moduledoc false
+
+  @spec decode_integer(binary()) :: integer()
+  def decode_integer(<<a::integer-size(32)>>), do: a
+  def encode_integer(type, a), do: <<type, 4, a::integer-size(32)>>
+
+  @spec decode_short(binary()) :: integer()
+  def decode_short(<<a::integer-size(16)>>), do: a
+  def encode_short(type, a), do: <<type, 4, a::integer-size(16)>>
+
+  @spec decode_byte(binary()) :: byte()
+  def decode_byte(<<a::integer-size(8)>>), do: a
+  def encode_byte(type, a), do: <<type, 1, a::integer-size(8)>>
+
+  @spec decode_ip(binary()) :: :inet.ip_address()
+  def decode_ip(<<a, b, c, d>>), do: {a, b, c, d}
+  def encode_ip(type, {a, b, c, d}), do: <<type, 4, a, b, c, d>>
+  def encode_ip_raw({a, b, c, d}), do: <<a, b, c, d>>
+
+  @spec decode_hwaddr(binary()) :: [byte()]
+  def decode_hwaddr(<<a, b, c, d, e, f>>), do: [a, b, c, d, e, f]
+  def encode_hwaddr(type, [a, b, c, d, e, f]), do: <<type, 6, a, b, c, d, e, f>>
+  def encode_hwaddr_raw([a, b, c, d, e, f]), do: <<a, b, c, d, e, f>>
+
+  def decode_iplist(<<a, b, c, d, t::binary>>), do: [{a, b, c, d} | decode_iplist(t)]
+  def decode_iplist(<<>>), do: []
+
+  @spec encode_iplist(byte(), [:inet.ip4_address()]) :: binary()
+  def encode_iplist(type, list) do
+    data = Enum.map(list, fn {a, b, c, d} -> <<a, b, c, d>> end) |> IO.iodata_to_binary()
+    IO.iodata_to_binary([type, byte_size(data), data])
+  end
+
+  @spec decode_shortlist(binary()) :: [integer()]
+  def decode_shortlist(<<h::size(16), t::binary>>) do
+    [h | decode_shortlist(t)]
+  end
+
+  def decode_shortlist(<<>>), do: []
+
+  def encode_shortlist(type, list) do
+    data = Enum.map(list, fn a -> <<a::integer-size(16)>> end) |> IO.iodata_to_binary()
+    IO.iodata_to_binary([type, byte_size(data), data])
+  end
+
+  @spec decode_vendor(binary()) :: binary()
+  def decode_vendor(value), do: value
+  @spec encode_vendor(byte(), binary()) :: binary()
+  def encode_vendor(type, value), do: <<type, byte_size(value), value::binary>>
+
+  @spec encode_string(byte(), binary()) :: binary()
+  def encode_string(type, value), do: <<type, byte_size(value), value::binary>>
+end
