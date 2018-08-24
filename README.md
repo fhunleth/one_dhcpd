@@ -1,5 +1,8 @@
 # one_dhcpd
 
+[![CircleCI](https://circleci.com/gh/fhunleth/one_dhcpd.svg?style=svg)](https://circleci.com/gh/fhunleth/one_dhcpd)
+[![Hex version](https://img.shields.io/hexpm/v/one_dhcpd.svg "Hex version")](https://hex.pm/packages/one_dhcpd)
+
 This is a simple DHCP server that's capable of giving out just one IP address.
 The use case is to support connecting Nerves devices directly to laptops. Yes,
 there are many ways of solving this problem. It took a long time to give up on
