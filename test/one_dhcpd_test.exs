@@ -1,6 +1,5 @@
 defmodule OneDHCPDTest do
   use ExUnit.Case
-  doctest OneDHCPD
 
   test "decodes a DHCP request" do
     packet =
