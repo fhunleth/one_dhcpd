@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     memcpy(&arp.arp_ha.sa_data, hwaddr, 6);
 
     arp.arp_flags = ATF_COM;
+#ifndef __APPLE__
     strncpy(arp.arp_dev, ifname, sizeof(arp.arp_dev));
 
     int s = socket(AF_INET, SOCK_DGRAM, 0);
@@ -45,7 +46,10 @@ int main(int argc, char *argv[])
         printf("SIOCSARP failed: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
     }
-
     exit(EXIT_SUCCESS);
+#else
+    printf("SIOCSARP not supported on OSX\n");
+    exit(EXIT_FAILURE);
+#endif
 }
 
