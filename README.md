@@ -7,7 +7,7 @@ This is a simple DHCP server that's capable of giving out just one IP address.
 The use case is to support connecting Nerves devices directly to laptops. Yes,
 there are many ways of solving this problem. It took a long time to give up on
 the available alternatives and write this, and we may end up abandoning this
-project. Until then, there's `one_dhcp`.
+project. Until then, there's `one_dhcpd`.
 
 If you're looking for a DHCP server, check out
 [dhcp_server](https://hex.pm/packages/dhcp_server). Note that since this project
