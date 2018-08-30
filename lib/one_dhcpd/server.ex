@@ -146,25 +146,43 @@ defmodule OneDHCPD.Server do
   defp handle_dhcp(:request, message, state) do
     Logger.debug("Responding to DHCP request on #{state.ifname}")
 
-    # Handle a DHCP Request message
-    response =
-      Message.response(message)
-      |> Map.put(:yiaddr, state.their_ip_address)
-      |> Map.put(:siaddr, state.our_ip_address)
-      |> Map.put(:options,
-        dhcp_message_type: :ack,
-        subnet_mask: state.subnet_mask,
-        dhcp_server_identifier: state.our_ip_address,
-        dhcp_lease_time: 86400
-      )
+    if message.options[:dhcp_requested_address] == state.their_ip_address do
+      # Send an DHCP ack
+      response =
+        Message.response(message)
+        |> Map.put(:yiaddr, state.their_ip_address)
+        |> Map.put(:siaddr, state.our_ip_address)
+        |> Map.put(:options,
+          dhcp_message_type: :ack,
+          subnet_mask: state.subnet_mask,
+          dhcp_server_identifier: state.our_ip_address,
+          dhcp_lease_time: message.options[:dhcp_lease_time] || 86400
+        )
 
-    # Update our ARP cache so that we can send a response
-    # directly to the client device.
-    :ok = ARP.replace(state.ifname, state.their_ip_address, message.chaddr)
+      # Update our ARP cache so that we can send a response
+      # directly to the client device.
+      :ok = ARP.replace(state.ifname, state.their_ip_address, message.chaddr)
 
-    dhcp_packet = Message.encode(response)
+      dhcp_packet = Message.encode(response)
 
-    :ok = :gen_udp.send(state.socket, state.their_ip_address, @dhcp_client_port, dhcp_packet)
+      :ok = :gen_udp.send(state.socket, state.their_ip_address, @dhcp_client_port, dhcp_packet)
+    else
+      # Send a DHCP nak
+      response =
+        Message.response(message)
+        |> Map.put(:broadcast_flag, 1)
+        |> Map.put(:siaddr, state.our_ip_address)
+        |> Map.put(:options,
+          dhcp_message_type: :nak,
+          dhcp_server_identifier: state.our_ip_address,
+          dhcp_message: "requested address not available"
+        )
+
+      dhcp_packet = Message.encode(response)
+
+      :ok = :gen_udp.send(state.socket, @ip_broadcast, @dhcp_client_port, dhcp_packet)
+    end
+
     {:noreply, state}
   end
 

@@ -48,6 +48,9 @@ defmodule OneDHCPD.Message do
 
   @doc """
   Create a response to a request with some fields filled in.
+
+  See RFC 2131 Table 3 for requirements. The caller is responsible for
+  most of the fields.
   """
   @spec response(t()) :: t()
   def response(request = %__MODULE__{}) do
@@ -57,7 +60,8 @@ defmodule OneDHCPD.Message do
       hops: 0,
       xid: request.xid,
       secs: 0,
-      broadcast_flag: 0,
+      broadcast_flag: request.broadcast_flag,
+      giaddr: request.giaddr,
       chaddr: request.chaddr
     }
   end
