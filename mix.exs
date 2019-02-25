@@ -9,9 +9,11 @@ defmodule OneDHCPD.MixProject do
       description: description(),
       package: package(),
       compilers: [:elixir_make | Mix.compilers()],
+      make_targets: ["all"],
       make_clean: ["clean"],
       docs: [extras: ["README.md"]],
       start_permanent: Mix.env() == :prod,
+      build_embedded: true,
       deps: deps()
     ]
   end
@@ -45,9 +47,9 @@ defmodule OneDHCPD.MixProject do
 
   defp deps do
     [
-      {:elixir_make, "~> 0.4", runtime: false},
+      {:elixir_make, "~> 0.5", runtime: false},
       {:ex_doc, "~> 0.19", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.0.0-rc.4", only: :dev, runtime: false}
     ]
   end
 end
