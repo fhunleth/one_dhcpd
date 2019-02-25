@@ -4,7 +4,7 @@ defmodule OneDHCPD.MixProject do
   def project do
     [
       app: :one_dhcpd,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.6",
       description: description(),
       package: package(),

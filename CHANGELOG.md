@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1
+
+* Bug fixes
+  * Move build products under `_build` so that it's not required to build clean
+    between switching targets.
+
 ## v0.2.0
 
 * Bug fixes
