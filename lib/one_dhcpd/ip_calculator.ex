@@ -13,10 +13,10 @@ defmodule OneDHCPD.IPCalculator do
 
   The algorithm here is to hash the hostname (uniqueness between devices
   assuming the hostname is unique) and the network interface (uniqueness on
-  device). Then use those bits to pick a subnet in the 172.16.0.0/12
-  private address range. That private range was picked arbitrarily since it
-  seems like the 10.0.0.0/8 and 192.168.0.0/16 ranges are used a lot more
-  often in home and corporate networks.
+  device). Then use those bits to pick a subnet in the 172.31.0.0/16
+  private address range. That private range was picked arbitrarily since
+  10.0.0.0/8 and 192.168.0.0/16 ranges are commonly used. 172.18.0.0/16
+  is used by Docker.
   """
 
   @doc """
@@ -42,13 +42,13 @@ defmodule OneDHCPD.IPCalculator do
   """
   @spec default_subnet(String.t(), String.t()) :: :inet.ip4_address()
   def default_subnet(ifname, hostname) do
-    # compute 18 random bits for the subnet
-    <<unique_bits::18-bits, _leftovers::bits()>> = :crypto.hash(:md5, [hostname, ifname])
+    # compute 14 random bits for the subnet
+    <<unique_bits::14-bits, _leftovers::bits()>> = :crypto.hash(:md5, [hostname, ifname])
 
-    prefix = <<172, 16>>
+    prefix = <<172, 31>>
 
     # Build the IP address as a binary and extract the individual bytes
-    <<a, b, c, d>> = <<prefix::12-bits, unique_bits::18-bits, 0::integer-size(2)>>
+    <<a, b, c, d>> = <<prefix::16-bits, unique_bits::14-bits, 0::integer-size(2)>>
 
     {a, b, c, d}
   end
