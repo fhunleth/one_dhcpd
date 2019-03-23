@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.2
+
+* Bug fixes
+  * Switch from 172.16.0.0/12 to 172.31.0.0/16 for the default addresses. This
+    avoids conflicts with Docker's use of 172.18.0.0/16.
+
 ## v0.2.1
 
 * Bug fixes
