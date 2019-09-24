@@ -28,6 +28,12 @@ defmodule OneDHCPD.IPCalculator do
   def mask(), do: {255, 255, 255, 252}
 
   @doc """
+  Return the prefix length that OneDHCPD uses.
+  """
+  @spec prefix_length() :: 30
+  def prefix_length(), do: 30
+
+  @doc """
   Calculate the default subnet for the specified Ethernet interface.
   """
   @spec default_subnet(String.t()) :: :inet.ip4_address()
