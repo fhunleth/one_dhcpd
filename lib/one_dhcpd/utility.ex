@@ -7,7 +7,7 @@ defmodule OneDHCPD.Utility do
 
   @spec decode_short(<<_::16>>) :: 0..65535
   def decode_short(<<a::integer-size(16)>>), do: a
-  def encode_short(type, a), do: <<type, 4, a::integer-size(16)>>
+  def encode_short(type, a), do: <<type, 2, a::integer-size(16)>>
 
   @spec decode_byte(<<_::8>>) :: byte()
   def decode_byte(<<a::integer-size(8)>>), do: a
