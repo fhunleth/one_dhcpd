@@ -7,13 +7,13 @@
 #
 # Variables to override:
 #
-# MIX_COMPILE_PATH path to the build's ebin directory
+# MIX_APP_PATH  path to the build directory
 #
 # CFLAGS	compiler flags for compiling all C files
 # LDFLAGS	linker flags for linking all binaries
 
-PREFIX = $(MIX_COMPILE_PATH)/../priv
-BUILD  = $(MIX_COMPILE_PATH)/../obj
+PREFIX = $(MIX_APP_PATH)/priv
+BUILD  = $(MIX_APP_PATH)/obj
 BIN = $(PREFIX)/arp_set
 
 CFLAGS ?= -O2 -Wall -Wextra -Wno-unused-parameter
@@ -38,7 +38,8 @@ $(BIN): $(OBJ)
 
 $(PREFIX) $(BUILD):
 	mkdir -p $@
+
 clean:
-	$(RM) $(BIN) $(BUILD)/*.o
+	$(RM) $(BIN) $(OBJ)
 
 .PHONY: all clean calling_from_make install
