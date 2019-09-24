@@ -18,6 +18,9 @@ defmodule OneDHCPD.MixProject do
       docs: docs(),
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
+      dialyzer: [
+        flags: [:unmatched_returns, :error_handling, :race_conditions, :underspecs]
+      ],
       deps: deps()
     ]
   end
