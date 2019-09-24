@@ -1,24 +1,24 @@
 defmodule OneDHCPD.Utility do
   @moduledoc false
 
-  @spec decode_integer(binary()) :: integer()
+  @spec decode_integer(<<_::32>>) :: non_neg_integer()
   def decode_integer(<<a::integer-size(32)>>), do: a
   def encode_integer(type, a), do: <<type, 4, a::integer-size(32)>>
 
-  @spec decode_short(binary()) :: integer()
+  @spec decode_short(<<_::16>>) :: 0..65535
   def decode_short(<<a::integer-size(16)>>), do: a
   def encode_short(type, a), do: <<type, 4, a::integer-size(16)>>
 
-  @spec decode_byte(binary()) :: byte()
+  @spec decode_byte(<<_::8>>) :: byte()
   def decode_byte(<<a::integer-size(8)>>), do: a
   def encode_byte(type, a), do: <<type, 1, a::integer-size(8)>>
 
-  @spec decode_ip(binary()) :: :inet.ip_address()
+  @spec decode_ip(<<_::32>>) :: :inet.ip_address()
   def decode_ip(<<a, b, c, d>>), do: {a, b, c, d}
   def encode_ip(type, {a, b, c, d}), do: <<type, 4, a, b, c, d>>
   def encode_ip_raw({a, b, c, d}), do: <<a, b, c, d>>
 
-  @spec decode_hwaddr(binary()) :: [byte()]
+  @spec decode_hwaddr(<<_::48>>) :: [byte(), ...]
   def decode_hwaddr(<<a, b, c, d, e, f>>), do: [a, b, c, d, e, f]
   def encode_hwaddr(type, [a, b, c, d, e, f]), do: <<type, 6, a, b, c, d, e, f>>
   def encode_hwaddr_raw([a, b, c, d, e, f]), do: <<a, b, c, d, e, f>>
@@ -32,8 +32,8 @@ defmodule OneDHCPD.Utility do
     IO.iodata_to_binary([type, byte_size(data), data])
   end
 
-  @spec decode_shortlist(binary()) :: [integer()]
-  def decode_shortlist(<<h::size(16), t::binary>>) do
+  @spec decode_shortlist(binary()) :: [0..65535]
+  def decode_shortlist(<<h::integer-size(16), t::binary>>) do
     [h | decode_shortlist(t)]
   end
 
