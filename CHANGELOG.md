@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.3
+
+* Improvements
+  * Added `OneDHCPD.prefix_length()` for a more convenient integration with
+    `vintage_net`
+
+* Bug fixes
+  * Non-code affecting Dialyzer and compiler warning fixes
+  * Fixed a currently unused DHCP option encoder (found when Dialyzing)
+
 ## v0.2.2
 
 * Bug fixes
