@@ -14,7 +14,9 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+#ifndef __APPLE__
     const char *ifname = argv[1];
+#endif
     const char *ip = argv[2];
     const char *hwaddr_str = argv[3];
 
