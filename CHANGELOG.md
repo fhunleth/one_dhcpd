@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.4
+
+* Bug fixes
+  * Fix C compiler warning
+
 ## v0.2.3
 
 * Improvements
