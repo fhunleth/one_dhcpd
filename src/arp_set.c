@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     arp.arp_flags = ATF_COM;
 #ifndef __APPLE__
-    strncpy(arp.arp_dev, ifname, sizeof(arp.arp_dev));
+    strncpy(arp.arp_dev, ifname, sizeof(arp.arp_dev) - 1);
 
     int s = socket(AF_INET, SOCK_DGRAM, 0);
     if (ioctl(s, SIOCSARP, &arp) < 0) {
