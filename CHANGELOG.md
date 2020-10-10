@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.5
+
+* Bug fixes
+  * Fix missing `:crypto` dependency warning on Elixir 1.11
+
 ## v0.2.4
 
 * Bug fixes
