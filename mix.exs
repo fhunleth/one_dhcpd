@@ -8,7 +8,7 @@ defmodule OneDHCPD.MixProject do
     [
       app: :one_dhcpd,
       version: @version,
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       description: description(),
       package: package(),
       source_url: @source_url,
@@ -21,7 +21,12 @@ defmodule OneDHCPD.MixProject do
       dialyzer: [
         flags: [:unmatched_returns, :error_handling, :race_conditions, :underspecs]
       ],
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: %{
+        docs: :docs,
+        "hex.publish": :docs,
+        "hex.build": :docs
+      }
     ]
   end
 
@@ -56,14 +61,14 @@ defmodule OneDHCPD.MixProject do
   defp deps do
     [
       {:elixir_make, "~> 0.6", runtime: false},
-      {:ex_doc, "~> 0.19", only: :docs, runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.7", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.22", only: :docs, runtime: false},
+      {:dialyxir, "~> 1.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp docs do
     [
-      extras: ["README.md"],
+      extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
       source_ref: "v#{@version}",
       source_url: @source_url
