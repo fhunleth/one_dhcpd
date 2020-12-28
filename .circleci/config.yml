@@ -28,9 +28,9 @@ defaults: &defaults
 jobs:
   build_elixir_1_11_otp_23:
     docker:
-      - image: erlang:23.1
+      - image: erlang:23.2.1
         environment:
-          ELIXIR_VERSION: 1.11.0-otp-23
+          ELIXIR_VERSION: 1.11.2-otp-23
           LC_ALL: C.UTF-8
     <<: *defaults
     steps:
