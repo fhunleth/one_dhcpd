@@ -96,7 +96,7 @@ defmodule OneDHCPD.Server do
          }}
 
       {:error, :einval} ->
-        _ = Logger.error("OneDHCPD can't open port #{port} on #{ifname}. Check permissions")
+        Logger.error("OneDHCPD can't open port #{port} on #{ifname}. Check permissions")
         {:stop, :check_port_and_ifname}
 
       {:error, other} ->
@@ -118,12 +118,12 @@ defmodule OneDHCPD.Server do
   end
 
   def handle_info(data, state) do
-    _ = Logger.error("dhcpd: not sure what to do with #{inspect(data)}")
+    Logger.error("dhcpd: not sure what to do with #{inspect(data)}")
     {:noreply, state}
   end
 
   defp handle_dhcp(:discover, message, state) do
-    _ = Logger.debug("Responding to DHCP discover on #{state.ifname}")
+    Logger.debug("Responding to DHCP discover on #{state.ifname}")
 
     # Handle a DHCP Discover message
     response =
@@ -144,7 +144,7 @@ defmodule OneDHCPD.Server do
   end
 
   defp handle_dhcp(:request, message, state) do
-    _ = Logger.debug("Responding to DHCP request on #{state.ifname}")
+    Logger.debug("Responding to DHCP request on #{state.ifname}")
 
     if message.options[:dhcp_requested_address] == state.their_ip_address do
       # Send an DHCP ack
@@ -187,7 +187,7 @@ defmodule OneDHCPD.Server do
   end
 
   defp handle_dhcp(_message_type, message, state) do
-    _ = Logger.info("Ignoring DHCP message: #{inspect(message)}")
+    Logger.info("Ignoring DHCP message: #{inspect(message)}")
     {:noreply, state}
   end
 
