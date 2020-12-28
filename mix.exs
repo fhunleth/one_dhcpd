@@ -46,7 +46,6 @@ defmodule OneDHCPD.MixProject do
       files: [
         "lib",
         "src/*.[ch]",
-        "test",
         "mix.exs",
         "README.md",
         "LICENSE",
