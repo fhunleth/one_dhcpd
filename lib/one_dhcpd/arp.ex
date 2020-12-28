@@ -8,7 +8,9 @@ defmodule OneDHCPD.ARP do
   """
 
   defmodule Entry do
-    @moduledoc false
+    @moduledoc """
+    One entry in the ARP table
+    """
     defstruct ip: nil,
               ifname: nil,
               hwaddr: nil,
