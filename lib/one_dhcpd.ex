@@ -11,17 +11,19 @@ defmodule OneDHCPD do
   conflicts with the user's network and other OneDHCPD servers. This is the
   recommended approach.
 
-  Here's an example of using OneDHCPD with Nerves.Network:
+  OneDHCPD is mostly used behinds the scenes with VintageNet. Here's an example
+  for using it with a virtual USB ethernet interface:
 
   ```elixir
-  iex> Nerves.Network.setup("usb0",
-                            ipv4_address_method: :static,
-                            ipv4_address: OneDHCPD.default_ip_address("usb0"),
-                            ipv4_subnet_mask: OneDHCPD.default_subnet_mask())
+  iex> VintageNet.configure("usb0", %{type: VintageNetDirect})
   :ok
-  iex> OneDHCPD.start_server("usb0")
-  {:ok, #PID<0, 220.0}
   ```
+
+  The Nerves new project generator adds this configuration by default. If you'd
+  like more information, see the
+  [VintageNetDirect[(https://hexdocs.pm/vintage_net_direct/VintageNetDirect.html)
+  documentation.
+
   """
 
   @doc """
