@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.0 - 2021-10-28
+
+This release bumps the version number to 1.0.0. No functional changes were made.
+
+* Improvements
+  * Minor code and documention cleanup
+
 ## v0.2.5
 
 * Bug fixes
