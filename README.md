@@ -17,7 +17,7 @@ Apache-2.0 to be in line with other Nerves projects.
 ## Usage
 
 Before using this directly, check whether you can use it via
-`nerves_init_gadget` or another initialization application.
+[`vintage_net_direct`](https://hex.pm/packages/vintage_net_direct).
 
 If you'd like to manually use this, see the [Hex
 docs](https://hexdocs.pm/one_dhcpd) for details.
