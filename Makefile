@@ -31,9 +31,11 @@ install: $(PREFIX) $(BUILD) $(BIN)
 $(OBJ): Makefile
 
 $(BUILD)/%.o: src/%.c
+	@echo " CC $(notdir $@)"
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(BIN): $(OBJ)
+	@echo " LD $(notdir $@)"
 	$(CC) -o $@ $(LDFLAGS) $^
 
 $(PREFIX) $(BUILD):
@@ -43,3 +45,6 @@ clean:
 	$(RM) $(BIN) $(OBJ)
 
 .PHONY: all clean calling_from_make install
+
+# Don't echo commands unless the caller exports "V=1"
+${V}.SILENT:
