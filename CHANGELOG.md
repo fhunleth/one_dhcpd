@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0 - 2022-3-6
+
+This release removes `OneDHCPD.start_server/2` and makes OneDHCPD a library
+rather than an OTP Application. If you're using `VintageNetDirect`, you won't
+notice this change since it didn't use `OneDHCPD.start_server/2` anyway. If
+you're using `OneDHCPD.start_server/2`, then add `OneDHCP.Server` to your
+application's supervision tree.
+
 ## v1.0.0 - 2021-10-28
 
 This release bumps the version number to 1.0.0. No functional changes were made.
