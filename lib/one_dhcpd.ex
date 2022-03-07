@@ -1,5 +1,5 @@
 defmodule OneDHCPD do
-  alias OneDHCPD.{DHCPDSupervisor, Server, IPCalculator}
+  alias OneDHCPD.IPCalculator
 
   @moduledoc """
   The One Address DHCP Server!
@@ -23,33 +23,7 @@ defmodule OneDHCPD do
   like more information, see the
   [VintageNetDirect[(https://hexdocs.pm/vintage_net_direct/VintageNetDirect.html)
   documentation.
-
   """
-
-  @doc """
-  Start a DHCP server running on the specified interface. If one is already
-  running, `{:error, {:already_started, pid}}` is returned.
-
-  The server takes the following options:
-
-  * `:port` - the UDP port number to use (specify if debugging)
-  * `:subnet` - a /30 IP subnet to use
-  """
-  @spec start_server(String.t(), keyword()) :: DynamicSupervisor.on_start_child()
-  def start_server(ifname, options \\ []) do
-    DynamicSupervisor.start_child(DHCPDSupervisor, {Server, [ifname, options]})
-  end
-
-  @doc """
-  Stop a DHCP server.
-  """
-  @spec stop_server(String.t()) :: :ok | {:error, :not_found}
-  def stop_server(ifname) do
-    case Process.whereis(Server.server_name(ifname)) do
-      nil -> {:error, :not_found}
-      pid -> DynamicSupervisor.terminate_child(OneDHCPD.DHCPDSupervisor, pid)
-    end
-  end
 
   @doc """
   Return the default server IP address that would be used for the specified
