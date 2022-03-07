@@ -5,7 +5,11 @@ defmodule OneDHCPD.Server do
   require Logger
   use Bitwise
 
-  @moduledoc false
+  @moduledoc """
+  This is the OneDHCPD Server.
+
+  Add it to a supervision tree in your application to use.
+  """
 
   @dhcp_server_port 67
   @dhcp_client_port 68

@@ -32,8 +32,7 @@ defmodule OneDHCPD.MixProject do
 
   def application do
     [
-      extra_applications: [:crypto, :logger],
-      mod: {OneDHCPD.Application, []}
+      extra_applications: [:crypto, :logger]
     ]
   end
 
