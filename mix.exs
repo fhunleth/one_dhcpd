@@ -8,7 +8,7 @@ defmodule OneDHCPD.MixProject do
     [
       app: :one_dhcpd,
       version: @version,
-      elixir: "~> 1.9",
+      elixir: "~> 1.11",
       description: description(),
       package: package(),
       source_url: @source_url,
