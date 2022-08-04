@@ -70,7 +70,7 @@ defmodule OneDHCPD.Server do
     GenServer.stop(server_name(ifname))
   end
 
-  @spec init(keyword()) :: {:ok, OneDHCPD.Server.State.t()}
+  @spec init(keyword()) :: {:ok, OneDHCPD.Server.State.t()} | {:stop, atom()}
   def init(options) do
     ifname = Keyword.get(options, :ifname)
     port = Keyword.get(options, :port, @dhcp_server_port)
