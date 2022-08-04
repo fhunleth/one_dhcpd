@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.1 - 2022-8-4
+
+* Changes
+  * Fix Elixir 1.14 warning during compilation
+  * Raise minimum Elixir version to 1.11 similar to other Nerves-related
+    libraries. It should still work, but it's no longer verified on CI, and I'm
+    no longer supporting issues with earlier Elixir versions.
+
 ## v2.0.0 - 2022-3-6
 
 This release removes `OneDHCPD.start_server/2` and makes OneDHCPD a library
