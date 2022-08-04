@@ -3,7 +3,6 @@ defmodule OneDHCPD.Server do
   alias OneDHCPD.{Message, ARP, IPCalculator}
 
   require Logger
-  use Bitwise
 
   @moduledoc """
   This is the OneDHCPD Server.
