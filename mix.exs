@@ -17,7 +17,6 @@ defmodule OneDHCPD.MixProject do
       make_clean: ["clean"],
       docs: docs(),
       start_permanent: Mix.env() == :prod,
-      build_embedded: true,
       dialyzer: [
         flags: [:missing_return, :extra_return, :unmatched_returns, :error_handling, :underspecs]
       ],
