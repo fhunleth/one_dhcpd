@@ -49,7 +49,7 @@ defmodule OneDHCPD.IPCalculator do
   @spec default_subnet(String.t(), String.t()) :: :inet.ip4_address()
   def default_subnet(ifname, hostname) do
     # compute 14 random bits for the subnet
-    <<unique_bits::14-bits, _leftovers::bits()>> = :crypto.hash(:md5, [hostname, ifname])
+    <<unique_bits::14-bits, _leftovers::bits>> = :crypto.hash(:md5, [hostname, ifname])
 
     prefix = <<172, 31>>
 
