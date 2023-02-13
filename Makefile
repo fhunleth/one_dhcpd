@@ -18,8 +18,8 @@ BIN = $(PREFIX)/arp_set
 
 CFLAGS ?= -O2 -Wall -Wextra -Wno-unused-parameter
 
-SRC = src/arp_set.c
-OBJ = $(SRC:src/%.c=$(BUILD)/%.o)
+SRC = c_src/arp_set.c
+OBJ = $(SRC:c_src/%.c=$(BUILD)/%.o)
 
 calling_from_make:
 	mix compile
@@ -30,7 +30,7 @@ install: $(PREFIX) $(BUILD) $(BIN)
 
 $(OBJ): Makefile
 
-$(BUILD)/%.o: src/%.c
+$(BUILD)/%.o: c_src/%.c
 	@echo " CC $(notdir $@)"
 	$(CC) -c $(CFLAGS) -o $@ $<
 
