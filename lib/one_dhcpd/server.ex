@@ -1,48 +1,49 @@
 defmodule OneDHCPD.Server do
-  use GenServer
-  alias OneDHCPD.{Message, ARP, IPCalculator}
-
-  require Logger
-
   @moduledoc """
   This is the OneDHCPD Server.
 
-  Add it to a supervision tree in your application to use.
+  Add it to a supervision tree in your application to use. E.g.,
+
+  ```elixir
+  {OneDHCPD.Server, ["usb0", [subnet: {172, 31, 246, 64}]}
+  ```
   """
+  use GenServer
+
+  alias OneDHCPD.ARP
+  alias OneDHCPD.IPCalculator
+  alias OneDHCPD.Message
+
+  require Logger
 
   @dhcp_server_port 67
   @dhcp_client_port 68
   @ip_broadcast {255, 255, 255, 255}
 
-  defmodule State do
-    @moduledoc false
-    defstruct [
-      :ifname,
-      :socket,
-      :subnet,
-      :subnet_mask,
-      :our_ip_address,
-      :their_ip_address
-    ]
+  defstruct [
+    :ifname,
+    :socket,
+    :subnet,
+    :subnet_mask,
+    :our_ip_address,
+    :their_ip_address
+  ]
 
-    @type t :: %__MODULE__{
-            ifname: String.t(),
-            socket: any(),
-            subnet: :inet.ip4_address(),
-            subnet_mask: :inet.ip4_address(),
-            our_ip_address: :inet.ip4_address(),
-            their_ip_address: :inet.ip4_address()
-          }
-  end
+  @type t :: %__MODULE__{
+          ifname: String.t(),
+          socket: any(),
+          subnet: :inet.ip4_address(),
+          subnet_mask: :inet.ip4_address(),
+          our_ip_address: :inet.ip4_address(),
+          their_ip_address: :inet.ip4_address()
+        }
 
-  @doc """
-  Return the server's name for the specified interface
-  """
-  @spec server_name(String.t()) :: atom()
-  def server_name(ifname) do
+  defp server_name(ifname) do
     Module.concat(__MODULE__, String.to_atom(ifname))
   end
 
+  @doc false
+  @spec child_spec([String.t(), ...]) :: Supervisor.child_spec()
   def child_spec([ifname, opts]) do
     %{
       id: __MODULE__,
@@ -54,23 +55,24 @@ defmodule OneDHCPD.Server do
   end
 
   @doc """
-  Start a DHCP Server that works for one client.
+  Start a DHCP Server that works for one client
 
   Options:
 
-  * `port`: the port for the server (only specify if testing)
-  * `subnet`: a /30 subnet to allocate addresses (default is {192, 168, 200, 0})
+  * `port` - the port for the server (only specify if testing)
+  * `subnet` - a /30 subnet to allocate addresses (default is {192, 168, 200, 0})
   """
   @spec start_link(String.t(), keyword()) :: GenServer.on_start()
   def start_link(ifname, options) do
     GenServer.start_link(__MODULE__, [{:ifname, ifname} | options], name: server_name(ifname))
   end
 
+  @spec stop(String.t()) :: :ok
   def stop(ifname) do
     GenServer.stop(server_name(ifname))
   end
 
-  @spec init(keyword()) :: {:ok, OneDHCPD.Server.State.t()} | {:stop, atom()}
+  @impl GenServer
   def init(options) do
     ifname = Keyword.get(options, :ifname)
     port = Keyword.get(options, :port, @dhcp_server_port)
@@ -89,7 +91,7 @@ defmodule OneDHCPD.Server do
     case :gen_udp.open(port, socket_opts) do
       {:ok, socket} ->
         {:ok,
-         %State{
+         %__MODULE__{
            socket: socket,
            ifname: ifname,
            subnet: subnet,
@@ -107,7 +109,11 @@ defmodule OneDHCPD.Server do
     end
   end
 
-  def handle_info({:udp, socket, _ip, @dhcp_client_port, packet}, %State{socket: socket} = state) do
+  @impl GenServer
+  def handle_info(
+        {:udp, socket, _ip, @dhcp_client_port, packet},
+        state = %__MODULE__{socket: socket}
+      ) do
     case Message.decode(packet) do
       {:error, _reason} ->
         # Bad packet?
@@ -194,6 +200,7 @@ defmodule OneDHCPD.Server do
     {:noreply, state}
   end
 
+  @impl GenServer
   def terminate(_, state) do
     :gen_udp.close(state.socket)
   end

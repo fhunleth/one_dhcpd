@@ -1,7 +1,6 @@
 defmodule OneDHCPD.Option do
-  import OneDHCPD.Utility
-
   @moduledoc false
+  import OneDHCPD.Utility
 
   # Message types
   @dhcpdiscover 1

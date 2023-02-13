@@ -1,15 +1,4 @@
 defmodule OneDHCPD.Message do
-  alias OneDHCPD.Options
-
-  import OneDHCPD.Utility
-
-  @magic_cookie <<99, 130, 83, 99>>
-  @bootrequest 1
-  @bootreply 2
-  @htype_ether 1
-  # @htype_ieee802 6
-  # @htype_fddi 8
-
   @moduledoc """
   DHCP Message
 
@@ -17,6 +6,16 @@ defmodule OneDHCPD.Message do
   for details. This implementation is only intended to be complete enough
   to support the OneDHCPD use case.
   """
+  import OneDHCPD.Utility
+
+  alias OneDHCPD.Options
+
+  @magic_cookie <<99, 130, 83, 99>>
+  @bootrequest 1
+  @bootreply 2
+  @htype_ether 1
+  # @htype_ieee802 6
+  # @htype_fddi 8
 
   defstruct op: @bootrequest,
             htype: @htype_ether,

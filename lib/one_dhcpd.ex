@@ -1,6 +1,4 @@
 defmodule OneDHCPD do
-  alias OneDHCPD.IPCalculator
-
   @moduledoc """
   The One Address DHCP Server!
 
@@ -24,6 +22,7 @@ defmodule OneDHCPD do
   [VintageNetDirect[(https://hexdocs.pm/vintage_net_direct/VintageNetDirect.html)
   documentation.
   """
+  alias OneDHCPD.IPCalculator
 
   @doc """
   Return the default server IP address that would be used for the specified

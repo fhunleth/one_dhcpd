@@ -23,6 +23,7 @@ defmodule OneDHCPD.Utility do
   def encode_hwaddr(type, [a, b, c, d, e, f]), do: <<type, 6, a, b, c, d, e, f>>
   def encode_hwaddr_raw([a, b, c, d, e, f]), do: <<a, b, c, d, e, f>>
 
+  @spec decode_iplist(binary()) :: [:inet.ip4_address()]
   def decode_iplist(<<a, b, c, d, t::binary>>), do: [{a, b, c, d} | decode_iplist(t)]
   def decode_iplist(<<>>), do: []
 
@@ -39,6 +40,7 @@ defmodule OneDHCPD.Utility do
 
   def decode_shortlist(<<>>), do: []
 
+  @spec encode_shortlist(byte(), [0..65535]) :: binary()
   def encode_shortlist(type, list) do
     data = Enum.map(list, fn a -> <<a::integer-size(16)>> end) |> IO.iodata_to_binary()
     IO.iodata_to_binary([type, byte_size(data), data])

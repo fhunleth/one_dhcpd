@@ -1,7 +1,6 @@
 defmodule OneDHCPD.Options do
-  alias OneDHCPD.Option
-
   @moduledoc false
+  alias OneDHCPD.Option
 
   @dho_pad 0
   @dho_end 255
