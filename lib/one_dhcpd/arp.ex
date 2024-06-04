@@ -138,7 +138,7 @@ defmodule OneDHCPD.ARP do
   end
 
   defp format_hw_address(addr) when is_list(addr) and length(addr) == 6 do
-    :io_lib.format('~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B', addr)
+    :io_lib.format(~c"~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B:~2.16.0B", addr)
     |> to_string()
   end
 end
