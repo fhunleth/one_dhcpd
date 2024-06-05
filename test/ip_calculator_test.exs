@@ -32,6 +32,17 @@ defmodule IPCalculatorTest do
     refute in_subnet30(subnet1, subnet2)
   end
 
+  test "default_subnet returns /30 addresses" do
+    {_, _, _, d} = IPCalculator.default_subnet("eth0", "host1")
+    assert Bitwise.band(d, 0x3) == 0
+  end
+
+  test "default_subnet is deterministic" do
+    assert {172, 31, 1, 28} == IPCalculator.default_subnet("usb0", "host1")
+    assert {172, 31, 194, 196} == IPCalculator.default_subnet("usb0", "host2")
+    assert {172, 31, 66, 112} == IPCalculator.default_subnet("usb1", "host1")
+  end
+
   defp in_subnet30({a1, b1, c1, d1}, {a2, b2, c2, d2}) do
     <<first_net::30-bits, _::2-bits>> = <<a1, b1, c1, d1>>
     <<second_net::30-bits, _::2-bits>> = <<a2, b2, c2, d2>>
