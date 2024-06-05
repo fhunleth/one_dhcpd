@@ -60,7 +60,8 @@ defmodule OneDHCPD.MixProject do
       {:elixir_make, "~> 0.6", runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:credo, "~> 1.5", only: :dev, runtime: false}
+      {:credo, "~> 1.5", only: :dev, runtime: false},
+      {:credo_binary_patterns, "~> 0.2.2", only: :dev, runtime: false}
     ]
   end
 
