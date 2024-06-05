@@ -44,8 +44,8 @@ defmodule IPCalculatorTest do
   end
 
   defp in_subnet30({a1, b1, c1, d1}, {a2, b2, c2, d2}) do
-    <<first_net::30-bits, _::2-bits>> = <<a1, b1, c1, d1>>
-    <<second_net::30-bits, _::2-bits>> = <<a2, b2, c2, d2>>
+    <<first_net::30, _::2>> = <<a1, b1, c1, d1>>
+    <<second_net::30, _::2>> = <<a2, b2, c2, d2>>
 
     first_net == second_net
   end
