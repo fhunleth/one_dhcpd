@@ -70,10 +70,9 @@ defmodule OneDHCPD.Message do
   """
   @spec decode(binary()) :: {:error, any()} | t()
   def decode(
-        <<op, htype, _hlen, hops, xid::size(32), secs::size(16), broadcast_flag::size(1),
-          0::size(15), ciaddr::binary-size(4), yiaddr::binary-size(4), siaddr::binary-size(4),
-          giaddr::binary-size(4), chaddr::binary-size(6), 0::size(80), _sname::binary-size(64),
-          _file::binary-size(128), @magic_cookie, options::binary>>
+        <<op, htype, _hlen, hops, xid::32, secs::16, broadcast_flag::1, 0::15, ciaddr::4-bytes,
+          yiaddr::4-bytes, siaddr::4-bytes, giaddr::4-bytes, chaddr::6-bytes, 0::80,
+          _sname::64-bytes, _file::128-bytes, @magic_cookie, options::binary>>
       ) do
     %__MODULE__{
       op: op,
