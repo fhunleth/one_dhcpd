@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2018 Frank Hunleth
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 defmodule OneDHCPD.Options do
   @moduledoc false
   alias OneDHCPD.Option
