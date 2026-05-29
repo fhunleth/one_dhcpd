@@ -42,15 +42,11 @@ defmodule OneDHCPD.Server do
           their_ip_address: :inet.ip4_address()
         }
 
-  defp server_name(ifname) do
-    Module.concat(__MODULE__, String.to_atom(ifname))
-  end
-
   @doc false
   @spec child_spec([String.t(), ...]) :: Supervisor.child_spec()
   def child_spec([ifname, opts]) do
     %{
-      id: __MODULE__,
+      id: {__MODULE__, ifname},
       start: {__MODULE__, :start_link, [ifname, opts]},
       type: :worker,
       restart: :permanent,
@@ -63,17 +59,15 @@ defmodule OneDHCPD.Server do
 
   Options:
 
+  * `name` - a registered name for the server (unset by default)
   * `port` - the port for the server (only specify if testing)
   * `subnet` - a /30 subnet to allocate addresses (default is {192, 168, 200, 0})
   """
   @spec start_link(String.t(), keyword()) :: GenServer.on_start()
   def start_link(ifname, options) do
-    GenServer.start_link(__MODULE__, [{:ifname, ifname} | options], name: server_name(ifname))
-  end
+    gen_server_options = Keyword.take(options, [:name])
 
-  @spec stop(String.t()) :: :ok
-  def stop(ifname) do
-    GenServer.stop(server_name(ifname))
+    GenServer.start_link(__MODULE__, [{:ifname, ifname} | options], gen_server_options)
   end
 
   @impl GenServer
