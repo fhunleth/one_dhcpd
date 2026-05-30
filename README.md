@@ -1,3 +1,7 @@
+<!--
+  SPDX-FileCopyrightText: 2018 Frank Hunleth
+  SPDX-License-Identifier: CC-BY-4.0
+-->
 # one_dhcpd
 
 [![Hex version](https://img.shields.io/hexpm/v/one_dhcpd.svg "Hex version")](https://hex.pm/packages/one_dhcpd)
