@@ -4,7 +4,7 @@
 defmodule OneDHCPD.MixProject do
   use Mix.Project
 
-  @version "2.0.3"
+  @version "3.0.0"
   @source_url "https://github.com/fhunleth/one_dhcpd"
 
   def project do

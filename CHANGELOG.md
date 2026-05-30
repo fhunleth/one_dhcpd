@@ -4,6 +4,18 @@
 -->
 # Changelog
 
+## v3.0.0 - 2026-5-30
+
+* Breaking changes
+  * Remove OneDHCPD.Server.stop/1 to remove need for an unsafe Module.concat/2.
+    I don't believe this function was used in production and was easier to
+    delete than fix. There's no known security issue.
+
+* Changes
+  * Added copyright/license headers to all source code in compliance with the
+    REUSE specification. No change in license or copyright.
+  * Only support Elixir 1.13 and later
+
 ## v2.0.3 - 2024-6-5
 
 * Changes
