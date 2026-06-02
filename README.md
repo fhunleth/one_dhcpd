@@ -5,7 +5,7 @@
 # one_dhcpd
 
 [![Hex version](https://img.shields.io/hexpm/v/one_dhcpd.svg "Hex version")](https://hex.pm/packages/one_dhcpd)
-[![API docs](https://img.shields.io/hexpm/v/one_dhcpd.svg?label=hexdocs "API docs")](https://hexdocs.pm/one_dhcpd/OneDHCPD.html)
+[![API docs](https://img.shields.io/hexpm/v/one_dhcpd.svg?label=hexdocs "API docs")](https://one-dhcpd.hexdocs.pm/OneDHCPD.html)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/fhunleth/one_dhcpd/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fhunleth/one_dhcpd/tree/main)
 [![REUSE status](https://api.reuse.software/badge/github.com/fhunleth/one_dhcpd)](https://api.reuse.software/info/github.com/fhunleth/one_dhcpd)
 
@@ -26,5 +26,5 @@ Before using this directly, check whether you can use it via
 [`vintage_net_direct`](https://hex.pm/packages/vintage_net_direct).
 
 If you'd like to manually use this, see the [Hex
-docs](https://hexdocs.pm/one_dhcpd) for details.
+docs](https://one-dhcpd.hexdocs.pm) for details.
 

@@ -23,7 +23,7 @@ defmodule OneDHCPD do
 
   The Nerves new project generator adds this configuration by default. If you'd
   like more information, see the
-  [VintageNetDirect[(https://hexdocs.pm/vintage_net_direct/VintageNetDirect.html)
+  [VintageNetDirect[(https://vintage-net-direct.hexdocs.pm/VintageNetDirect.html)
   documentation.
   """
   alias OneDHCPD.IPCalculator
