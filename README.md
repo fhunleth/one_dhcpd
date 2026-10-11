@@ -6,6 +6,7 @@
 
 [![Hex version](https://img.shields.io/hexpm/v/one_dhcpd.svg "Hex version")](https://hex.pm/packages/one_dhcpd)
 [![API docs](https://img.shields.io/hexpm/v/one_dhcpd.svg?label=hexdocs "API docs")](https://one-dhcpd.hexdocs.pm/OneDHCPD.html)
+[![Nerves compatibility](https://compatibility.nerves-project.org/badge/one_dhcpd.svg)](https://compatibility.nerves-project.org/packages/one_dhcpd)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/fhunleth/one_dhcpd/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fhunleth/one_dhcpd/tree/main)
 [![REUSE status](https://api.reuse.software/badge/github.com/fhunleth/one_dhcpd)](https://api.reuse.software/info/github.com/fhunleth/one_dhcpd)
 
